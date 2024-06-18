@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProdutoService } from '../produto.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-produto-update-modal',
@@ -15,7 +16,8 @@ export class ProdutoUpdateModalComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProdutoUpdateModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private snackBar: MatSnackBar
   ) {
     this.updateForm = this.fb.group({
       nome: [data.nome, Validators.required],
@@ -26,9 +28,17 @@ export class ProdutoUpdateModalComponent {
 
   onSubmit() {
     if (this.updateForm.valid) {
-      this.produtoService.updateProduto(this.data.id, this.updateForm.value).subscribe(() => {
-        this.dialogRef.close();
-      });
+      this.produtoService.addProduto(this.updateForm.value).subscribe(
+        () => {
+          this.snackBar.open('Produto atualizado com sucesso!', '', { duration: 2000 });
+          this.dialogRef.close();
+        },
+        (error: any) => {
+          console.error(error);
+          this.snackBar.open('Erro ao tentar atualizar produto!', '', { duration: 2000 });
+          this.dialogRef.close();
+        }
+      );
     }
   }
 
