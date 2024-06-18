@@ -14,11 +14,17 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { ProdutoComponent } from './produto/produto.component';
+import { ProdutoCreateModalComponent } from './produto-create-modal/produto-create-modal.component';
+import { ProdutoUpdateModalComponent } from './produto-update-modal/produto-update-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProdutoService } from './produto.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProdutoComponent
+    ProdutoComponent,
+    ProdutoCreateModalComponent,
+    ProdutoUpdateModalComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +38,10 @@ import { ProdutoComponent } from './produto/produto.component';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [ProdutoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

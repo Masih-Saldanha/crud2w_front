@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ProdutoService } from '../produto.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProdutoCreateModalComponent } from '../produto-create-modal/produto-create-modal.component';
+import { ProdutoUpdateModalComponent } from '../produto-update-modal/produto-update-modal.component';
 
 interface Produto {
   id: number;
@@ -22,10 +25,31 @@ export class ProdutoComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'tipo', 'descricao', 'dataInclusao', 'acoes'];
 
-  constructor(private produtoService: ProdutoService, private snackBar: MatSnackBar) { }
+  constructor(private produtoService: ProdutoService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getProdutos();
+  }
+
+  openCreateModal(): void {
+    const dialogRef = this.dialog.open(ProdutoCreateModalComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getProdutos();
+    });
+  }
+
+  openUpdateModal(produto: Produto): void {
+    const dialogRef = this.dialog.open(ProdutoUpdateModalComponent, {
+      width: '400px',
+      data: produto
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getProdutos();
+    });
   }
 
   getProdutos(): void {

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Atualizar Produto</h2>
+<mat-dialog-content>
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descrição</mat-label>
+      <textarea matInput formControlName="descricao"></textarea>
+    </mat-form-field>
+
+    <button mat-button type="submit" [disabled]="updateForm.invalid">Salvar</button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Fechar</button>
+</mat-dialog-actions>

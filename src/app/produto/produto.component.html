@@ -1,4 +1,8 @@
 <div>
+  <button mat-button (click)="openCreateModal()">Cadastrar Novo Produto</button>
+</div>
+
+<div>
   <h1>Produtos Cadastrados</h1>
   <table mat-table [dataSource]="produtos" class="mat-elevation-z8">
     <!-- ID Column -->
@@ -31,11 +35,10 @@
       <td mat-cell *matCellDef="let produto"> {{produto.dataInclusao | date:'short'}} </td>
     </ng-container>
 
-    <!-- Ações Column -->
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef> Ações </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="setUpdateMode(element)">
+        <button mat-icon-button (click)="openUpdateModal(element)">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button (click)="deleteProduto(element.id)">
@@ -66,25 +69,5 @@
       <input matInput [(ngModel)]="updateProdutoData.descricao" name="descricao">
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Atualizar</button>
-  </form>
-
-  <h2>Cadastrar Novo Produto</h2>
-  <form (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <mat-label>Nome</mat-label>
-      <input matInput [(ngModel)]="produto.nome" name="nome">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Tipo</mat-label>
-      <mat-select [(ngModel)]="produto.tipo" name="tipo">
-        <mat-option value="ELETRONICO">Eletrônico</mat-option>
-        <mat-option value="MOVEL">Móvel</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Descricao</mat-label>
-      <input matInput [(ngModel)]="produto.descricao" name="descricao">
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Adicionar</button>
   </form>
 </div>
