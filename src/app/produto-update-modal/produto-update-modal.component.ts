@@ -28,7 +28,7 @@ export class ProdutoUpdateModalComponent {
 
   onSubmit() {
     if (this.updateForm.valid) {
-      this.produtoService.addProduto(this.updateForm.value).subscribe(
+      this.produtoService.updateProduto(this.data.id, this.updateForm.value).subscribe(
         () => {
           this.snackBar.open('Produto atualizado com sucesso!', '', { duration: 2000 });
           this.dialogRef.close();
